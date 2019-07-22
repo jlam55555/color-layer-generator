@@ -2,6 +2,8 @@
 
 A Sass partial to generate background color "layers" as CSS classes
 
+![Span of 8-color basis][0]
+
 ---
 
 Simply add a CSS class to add a background-color. Not efficient (layering elements with JS is better for large sets of colors), but for small sets (colors &lt; 7) this might come in handy!
@@ -22,5 +24,6 @@ Where @params is a list of the format:
 
 See [./examples][2] for a worked example.
 
+[0]: https://i.postimg.cc/ZRDXwZYk/Screenshot-from-2019-07-22-06-13-45.png
 [1]: https://stackoverflow.com/questions/57138883
-[2]: ./examples/example.html
+[2]: https://jlam55555.github.io/color-layer-generator/examples/example.html
