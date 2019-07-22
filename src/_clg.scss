@@ -1,0 +1,78 @@
+/// # Color Layer Generator
+///
+/// Simply add a CSS class to add a background-color. Not efficient
+/// (layering elements with JS is better for large sets of colors), but for
+/// small sets (colors < 7) this might come in handy!
+///
+/// Usage:
+///
+///     @include gen-layers($params)
+///
+/// Where @params is a list of the format:
+///
+///     $params: (
+///       '[class_name]': ([R], [G], [B], [A]),
+///       ...
+///     )
+///
+/// Find examples at github.com/jlam55555/color-layer-gen.
+///
+/// @author Jonathan Lam <jlam55555@gmail.com>
+
+// generate power set of colors
+// see: https://en.wikipedia.org/wiki/Power_set#Algorithms
+@function color-ps($color-set) {
+  // base case is length 1 b/c no length 0
+  @if length($color-set) == 1 {
+    @return ($color-set ());
+  }
+  $e: nth($color-set, 1);
+  // get slice from element 2 onwards
+  $t: ();
+  @if length($color-set) > 1 {
+    @for $i from 2 through length($color-set) {
+      $t: append($t, nth($color-set, $i));
+    }
+  }
+  $pt: color-ps($t);
+  $fept: ();
+  @each $x in $pt {
+    $fept: append($fept, append($x, $e));
+  }
+  @return join($fept, $pt);
+}
+
+// little helper function for neatness
+@function rgba($v) {
+  @return 'rgba(#{nth($v, 1)},#{nth($v, 2)},#{nth($v, 3)},#{nth($v, 4)})';
+}
+
+// main logic to generate rules (selectors and gradients)
+@function gen-rules($color-set) {
+  $color-power-set: color-ps($color-set);
+  $generated-rules: ();
+  @each $color-subset in $color-power-set {
+    @if length($color-subset) != 0 {
+      $selector: '';
+      $gradients: '';
+      @each $color-name, $color-val in $color-subset {
+        $selector: '#{$selector}.#{$color-name}';
+        $col: rgba($color-val);
+        $gradients: '#{$gradients},linear-gradient(to top,#{$col},#{$col})';
+      }
+      $gradients: str-slice($gradients, 2);
+      $generated-rules: append($generated-rules, ($selector, $gradients));
+    }
+  }
+  @return $generated-rules;
+}
+
+// rules can only be generated from @mixins and not @functions,
+// so this is a wrapper to generate layer rules
+@mixin gen-layers($color-set) {
+  @each $selector, $gradient in gen-rules($color-set) {
+    #{$selector} {
+      background:#{$gradient};
+    }
+  }
+}

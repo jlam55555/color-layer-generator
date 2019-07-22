@@ -1,0 +1,26 @@
+@import '../src/_clg';
+
+// Example usage: colors as a list of (classname: (R, G, B, A)) tuples.
+// Note that 2^n rules are generated. Eight rules generates 70Kb of CSS.
+$opacity: 0.5;
+$params: (
+  'c0': (0, 0, 0, $opacity),
+  'c1': (255, 0, 0, $opacity),
+  'c2': (0, 255, 0, $opacity),
+  'c3': (0, 0, 255, $opacity),
+  'c4': (255, 255, 0, $opacity),
+  'c5': (255, 0, 255, $opacity),
+  'c6': (0, 255, 255, $opacity),
+  'c7': (255, 255, 255, $opacity)
+);
+// start generating layer rules!
+@include gen-layers($params);
+
+// additional styles
+span {
+  display: inline-block;
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+}

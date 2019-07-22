@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Span of color range</title>
+    <link rel='stylesheet' type='text/css' href='./example.css'>
+  </head>
+  <body>
+    <h1>Entire span of color range</h1>
+    <p>In this eight color basis, there are 256 (2^8) colors in the span. Return to <a href='./example.html'>main example page</a>.</p>
+    <div id='container'></div>
+    <script>
+      // generate power set of classes
+      // directly translating pseudocode from
+      // https://en.wikipedia.org/wiki/Power_set#Algorithms
+      const container = document.querySelector('#container');
+      (p = s => {
+        if(!s.length) return [s];
+        const e = s[0],
+              t = s.slice(1),
+              pt = p(t),
+              fept = pt.map(x => x.concat([e]));
+        return pt.concat(fept);
+      })([...Array(8)].map((v,i)=>'c'+i))
+        .slice(1)
+        .forEach(perm => {
+          const div = document.createElement('span');
+          div.classList.add(...perm);
+          container.append(div);
+        });
+    </script>
+  </body>
+</html>
