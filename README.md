@@ -10,7 +10,7 @@ Note that this is not really built for performance, but just to make layering ba
 
 Usage:
 
-		@import 'path/to/_clg'
+    @import 'path/to/_clg'
     @include gen-layers($params)
 
 Where @params is a list of the format:
@@ -23,4 +23,4 @@ Where @params is a list of the format:
 See [./examples][2] for a worked example.
 
 [1]: https://stackoverflow.com/questions/57138883
-[2]: [./examples/example.html]
+[2]: ./examples/example.html
