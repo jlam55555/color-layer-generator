@@ -24,6 +24,6 @@ Where @params is a list of the format:
 
 See [./examples][2] for a worked example.
 
-[0]: https://i.postimg.cc/ZRDXwZYk/Screenshot-from-2019-07-22-06-13-45.png
+[0]: https://i.postimg.cc/sgjxF99V/Screenshot-from-2019-07-22-06-18-33.png
 [1]: https://stackoverflow.com/questions/57138883
 [2]: https://jlam55555.github.io/color-layer-generator/examples/example.html
